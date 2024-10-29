@@ -1,6 +1,12 @@
-from django.shortcuts import render
-# Create your views here.
-from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.http import HttpResponse, HttpResponseNotFound
+from django.urls import reverse
+
+data = {
+    "programlama": "programlama kursları",
+    "web-gelistirme": "web geliştirme kursları",
+    "veritabani": "veritabanı kursları",
+}
 
 def kurslar(request):
     return HttpResponse('Kurslar')
@@ -12,23 +18,18 @@ def details(request, kurs_adi):
     return HttpResponse(f'{kurs_adi} Kursu Detayları')
 
 def getCoursesByCategory(request, category_name):
-        text = ""
-
-
-        if(category_name == 'programlama'):
-             text = 'Programlama Kursları'
-
-        elif(category_name == 'web-gelistirme'):
-                text = 'Web Geliştirme Kursları'
-        
-        elif(category_name == 'veritabani'):
-                text = 'Veritabanı Kursları'
-
-        else:
-                text = 'Yanlış Kategori'
-
-        return HttpResponse(text)
+    try:
+        category_text = data[category_name]
+        return HttpResponse(category_text)
+    except KeyError:
+        return HttpResponseNotFound("Yanlış Kategori")
 
 def getCoursesByCategoryId(request, category_id):
-      return HttpResponse(f'Kategori ID: {category_id}')
+    category_list = list(data.keys())
+    if 0 < category_id <= len(category_list):
+        redirect_text = category_list[category_id - 1]
 
+        redirect_url = reverse('courses_by_category', args=[redirect_text])
+        return redirect(redirect_url)
+    else:
+        return HttpResponseNotFound("Yanlış Kategori ID")
