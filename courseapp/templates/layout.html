@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    {% block  css_files %}{% endblock%} 
+    <title>{% block title %}Course App{% endblock title %}</title>
+</head>
+<body>
+
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg bg-danger navbar-dark">
+        <div class="container">
+            <a href="/" class="navbar-brand">Course App</a>
+            <ul class = "navbar-nav me-auto">
+                <li class = "nav-item">
+                    <a href="/" class = "nav-link">Courses</a>
+                </li>
+                <li class = "nav-item">
+                    <a href="/contact" class = "nav-link">Contact</a>
+                </li>
+                <li class = "nav-item">
+                    <a href="/about" class = "nav-link">About</a>
+                </li>
+            </ul>
+            
+        </div>
+        
+    </nav>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-3">
+                <!--Menu-->
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        Programlama
+                    </a>
+                     <a href="#" class="list-group-item list-group-item-action">
+                        Web geliştirme
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        Veritabanı 
+                    </a>
+                </div>
+            </div>
+            <div class="col-9">
+                <!--Content-->
+                {% block content %}
+                
+
+                {% endblock content %}
+
+
+
+            
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -8,11 +8,20 @@ data = {
     "veritabani": "veritabanı kursları",
 }
 
-def kurslar(request):
-    return HttpResponse('Kurslar')
+def index(request):
+    return render(request,'coursespages/index.html')
 
-def list(request):
-    return HttpResponse('list')
+def kurslar(request):
+    list_items = ""
+    category_list = list(data.keys())
+
+    for category in category_list:
+        redirect_url = reverse('courses_by_category', args=[category])
+        list_items += f"<li><a href='{redirect_url}'>{category}</a></li>"
+
+    html = f"<h1>Kurs Listesi</h1><br><ul>{list_items}</ul>"
+
+    return HttpResponse(html)
 
 def details(request, kurs_adi):
     return HttpResponse(f'{kurs_adi} Kursu Detayları')
