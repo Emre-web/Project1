@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse
+from datetime import datetime
+
 
 data = {
     "programlama": "programlama kursları",
@@ -8,20 +10,53 @@ data = {
     "veritabani": "veritabanı kursları",
 }
 
+db = {
+    "courses": [
+            {
+            "title" : "Python Kursu",
+            "instructor": "Ahmet Mehmet",
+            "description": "Python programlama dilini öğrenmek için bu kursa katılın.",
+            "imageUrl":"https://img-c.udemycdn.com/course/750x422/2463492_8344_3.jpg",
+            "slug": "python-kursu",
+            "date": datetime(2024,11,3),
+            "is-active": True
+                    },
+                    {
+            "title" : "React.js Kursu",
+            "instructor": " Mehmet Taha",
+            "description": "React.js Kütüphanesini öğrenmek için bu kursa katılın.",
+            "imageUrl":"https://img-c.udemycdn.com/course/750x422/1258436_2dc3_4.jpg",
+            "slug": "React.js-kursu",
+            "date": datetime(2024,11,3),
+            "is-active": True
+                    },
+                    {
+            "title" : "Sql Kursu",
+            "instructor": "Ali Veli",
+            "description": "Sql dilini öğrenmek için bu kursa katılın.",
+            "imageUrl":"https://img-c.udemycdn.com/course/750x422/1662526_fc1c_3.jpg",
+            "slug": "Sql-kursu",
+            "date": datetime(2024,11,3),
+            "is-active": True
+                    },
+    ],
+        "categories": [
+       { "id": 1, "name": "programlama", "slug": "programlama" },
+       { "id": 2, "name": "web-gelistirme", "slug": "web-gelistirme"},
+       { "id": 3, "name": "veritabani", "slug": "veritabani" },
+          ]
+    
+}
 def index(request):
-    return render(request,'coursespages/index.html')
+    kurslar = db["courses"]
+    kategoriler = db["categories"]
 
-def kurslar(request):
-    list_items = ""
-    category_list = list(data.keys())
 
-    for category in category_list:
-        redirect_url = reverse('courses_by_category', args=[category])
-        list_items += f"<li><a href='{redirect_url}'>{category}</a></li>"
+    return render(request,'coursespages/index.html',{
+        'categories': kategoriler,
+        'courses': kurslar
 
-    html = f"<h1>Kurs Listesi</h1><br><ul>{list_items}</ul>"
-
-    return HttpResponse(html)
+    })
 
 def details(request, kurs_adi):
     return HttpResponse(f'{kurs_adi} Kursu Detayları')
