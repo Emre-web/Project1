@@ -1,14 +1,22 @@
 {% extends "layout.html" %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
+{% endblock %}
+
 
 {% block title %}Courses{% endblock title %}
+
+
 
 {% block content %}
 <div class="container mt-3">
     <div class="row">
         <div class="col-3">
-
+            
             {% include 'coursespages/partials/_categories.html' %}
-
+            
         </div>
 
         <div class="col-9">
@@ -19,3 +27,8 @@
     </div>
 </div>
 {% endblock content %}
+    
+
+        {% block js_files %}
+            <script src"{% static "courses/js/script.js" %} "></script>
+        {% endblock %}

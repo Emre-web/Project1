@@ -16,28 +16,31 @@ db = {
             "title" : "Python Kursu",
             "instructor": "Ahmet Mehmet",
             "description": "Python programlama dilini öğrenmek için bu kursa katılın.",
-            "imageUrl":"https://img-c.udemycdn.com/course/750x422/2463492_8344_3.jpg",
+            "imageUrl":"1.jpg",
             "slug": "python-kursu",
-            "date": datetime(2024,11,3),
-            "is-active": True
+            "date": datetime.now(),
+            "isActive": True,
+            "isUpdated": False
                     },
                     {
             "title" : "React.js Kursu",
             "instructor": " Mehmet Taha",
             "description": "React.js Kütüphanesini öğrenmek için bu kursa katılın.",
-            "imageUrl":"https://img-c.udemycdn.com/course/750x422/1258436_2dc3_4.jpg",
+            "imageUrl":"2.jpg", 
             "slug": "React.js-kursu",
             "date": datetime(2024,11,3),
-            "is-active": True
+            "isActive": True,
+            "isUpdated": True
                     },
                     {
             "title" : "Sql Kursu",
             "instructor": "Ali Veli",
             "description": "Sql dilini öğrenmek için bu kursa katılın.",
-            "imageUrl":"https://img-c.udemycdn.com/course/750x422/1662526_fc1c_3.jpg",
+            "imageUrl":"3.jpg",
             "slug": "Sql-kursu",
             "date": datetime(2024,11,3),
-            "is-active": True
+            "isActive": True,
+            "isUpdated": True
                     },
     ],
         "categories": [
@@ -48,9 +51,12 @@ db = {
     
 }
 def index(request):
-    kurslar = db["courses"]
+    kurslar = [course for course in db["courses"] if course["isActive"] == True]
     kategoriler = db["categories"]
 
+    # for kurs in db["courses"]:
+    #     if kurs["isActive"] == True:    
+    #         kurslar.append(kurs)
 
     return render(request,'coursespages/index.html',{
         'categories': kategoriler,
