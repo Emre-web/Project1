@@ -65,13 +65,9 @@ def index(request):
     })
 
 
-def details(request, kurs_id):   
-    # try:
-    #     course = Course.objects.get(pk=kurs_id)
-    # except:
-    #     raise Http404("Kurs Bulunamadı")    
-    
-    course = get_object_or_404(Course, pk=kurs_id)
+def details(request, slug):   
+  
+    course = get_object_or_404(Course, slug=slug)
 
     context = {
         'course': course 
