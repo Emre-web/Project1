@@ -75,22 +75,12 @@ def details(request, slug):
     return render(request, 'coursespages/details.html', context)
 
      
-def getCoursesByCategory(request, category_name):
-    try:
-        category_text = data[category_name]
-        return render(request, 'coursespages/courses.html', {
-        'category': category_name,
-        'category_text': category_text
-        })
-    except KeyError:
-        return HttpResponseNotFound("Yanlış Kategori")
+def getCoursesByCategory(request, slug):
+    kurslar = Course.objects.filter(category__slug=slug, isActive=True)
+    kutegoriler = Category.objects.all()
 
-def getCoursesByCategoryId(request, category_id):
-    category_list = list(data.keys())
-    if 0 < category_id <= len(category_list):
-        redirect_text = category_list[category_id - 1]
-
-        redirect_url = reverse('courses_by_category', args=[redirect_text])
-        return redirect(redirect_url)
-    else:
-        return HttpResponseNotFound("Yanlış Kategori ID")
+    return render(request, 'coursespages/index.html', {
+        'categories': kutegoriler,
+        'courses': kurslar,
+        'seciliCategory': slug
+    })

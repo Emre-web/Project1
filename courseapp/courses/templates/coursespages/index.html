@@ -17,6 +17,11 @@
             {% include 'coursespages/partials/_categories.html' %}   
         </div>
         <div class="col-9">
+            
+            {% if courses|length == 0 %}
+            <div class="alert alert-primary">Course is not found</div>
+            {% endif %}
+
             {% for course in courses %}
             {% include 'coursespages/partials/_course.html' %}
             {% endfor %}
