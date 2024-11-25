@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
+{% endblock %}
+
+
+{% block title %}
+Create Course 
+{% endblock title %}
+
+ 
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">     
+          {% if error %}
+          <div class="alert alert-danger">
+            {{msg}}
+        </div>
+          {% endif %}
+        </div>
+        <form action="{% url "create_course" %}" method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label" for="{{form.title.id_for_label}}">Title</label>
+                {{form.title}}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="{{form.description.id_for_label}}">description</label>
+                {{form.description}}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="{{form.imageUrl.id_for_label}}">imageUrl</label>
+                {{form.imageUrl}}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="{{form.date.id_for_label}}">date</label>
+                {{form.date}} 
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="{{form.slug.id_for_label}}">slug</label>
+                {{form.slug}}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="{{form.categories.id_for_label}}">categories</label>
+                {{form.categories}}
+            </div>
+            
+            <button class="btn btn-primary" type="submit">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+    
+
+        {% block js_files %}
+            <script src"{% static "courses/js/script.js" %} "></script>
+        {% endblock %}

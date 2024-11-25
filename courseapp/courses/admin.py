@@ -5,11 +5,11 @@ from .models import Category, Course
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'imageUrl', 'date', 'isActive',"category_list")
+    list_display = ('title', 'description', 'imageUrl', 'date', 'isActive', "isHome","category_list")
     list_display_links = ('title', 'description',)
     prepopulated_fields = {'slug': ('title',),}
-    list_filter = ('date', 'isActive')
-    list_editable = ('isActive',)
+    list_filter = ('date', 'isActive','isHome')
+    list_editable = ('isActive', 'isHome')
     search_fields = ('title', 'description')
 
     def category_list(self, obj):

@@ -16,9 +16,10 @@ class Course(models.Model):
     description = models.TextField(max_length=70)
     imageUrl = models.CharField(max_length=50, blank=False)
     date = models.DateTimeField(auto_now_add=True)
-    isActive = models.BooleanField()
+    isActive = models.BooleanField(default=False)
+    isHome = models.BooleanField(default=False)
     slug = models.SlugField(default="", editable=True, null=False, unique=True, db_index=True, max_length=50)
-    categories = models.ManyToManyField(Category )
+    categories = models.ManyToManyField(Category)
 
     def __str__(self):
      return f"{self.title} {self.description} {self.imageUrl} {self.date} {self.isActive}"
