@@ -22,7 +22,7 @@ class Course(models.Model):
     categories = models.ManyToManyField(Category)
 
     def __str__(self):
-     return f"{self.title} {self.description} {self.imageUrl} {self.date} {self.isActive}"
+     return f"{self.title} {self.description} {self.imageUrl} {self.date} {self.isActive} {self.isHome} {self.slug} {self.categories}"
 
 
 

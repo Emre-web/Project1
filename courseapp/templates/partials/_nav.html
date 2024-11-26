@@ -6,11 +6,12 @@
                 <a href="{% url 'index'%}" class="nav-link">Courses</a>
             </li>
             <li class="nav-item">
-                <a href=" {% url "create_course" %} " class="nav-link">Create course</a>
+                <a href=" {% url "create_course" %} " class="nav-link">Admin Create course</a>
             </li>
-            {% comment %} <li class="nav-item">
-                <a href="/about" class="nav-link">About</a>
-            </li> {% endcomment %}
+            <li class="nav-item">
+                <a href=" {% url "course_list" %} " class="nav-link">Admin courses</a>
+            </li>
+            
         </ul> 
 
         <form class ="d-flex" action=" {% url 'search' %}">

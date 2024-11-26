@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from courses.forms import CourseCreateForm
+from courses.forms import CourseCreateForm, CourseEditForm
 from .models import Course, Category
 from django.core.paginator import Paginator
-
+import os
+import random 
 
 def index(request):
     kurslar = Course.objects.filter(isActive=True, isHome=True)
@@ -19,18 +20,60 @@ def create_course(request):
              form = CourseCreateForm(request.POST)
 
              if form.is_valid():
-                kurs = Course(
-                title=form.cleaned_data["title"],
-                description=form.cleaned_data["description"],
-                imageUrl=form.cleaned_data["imageUrl"],
-                slug=form.cleaned_data["slug"])
-                kurs.save()
+                form.save()
                 return redirect('/kurslar')
 
         
         form = CourseCreateForm()
         return render(request, 'coursespages/create-course.html',{"form":form})
 
+def course_list(request):
+    kurslar = Course.objects.all()
+
+    return render(request,'coursespages/course-list.html',{
+        'coursespages': kurslar
+
+    })
+
+def course_edit(request, id):
+    course = get_object_or_404(Course, id=id)
+
+    if request.method == 'POST':
+        form = CourseEditForm(request.POST, instance=course)
+        if form.is_valid(): #bu kısımda formun doğruluğunu kontrol ediyoruz. 
+            form.save()
+            return redirect('course_list')  # Updated to use the correct URL name
+    else:
+        form = CourseEditForm(instance=course)
+
+    return render(request, "coursespages/edit-course.html", { 'form': form })
+
+def course_delete(request, id):
+    course = get_object_or_404(Course, id=id)
+
+    if request.method == 'POST':
+        course.delete()
+        return redirect('course_list')
+
+    return render(request, 'coursespages/course-delete.html', {'course': course })
+
+def upload(request):
+    if request.method == 'POST':
+       uploated_image = request.FILES['image']
+       handle_uploaded_file(uploated_image)
+       return render(request, "coursespages/success.html")
+    return render(request, 'coursespages/upload.html')
+
+def handle_uploaded_file(file):
+    number = random.randint(1, 1000)
+    filename, file_extension = os.path.splitext(file.name)
+    name = filename + "_" + str(number) + file_extension
+    temp_dir = "temp/"
+    if not os.path.exists(temp_dir):
+        os.makedirs(temp_dir)
+    with open(temp_dir + name, "wb+") as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
 
 def search(request):
     if "q" in request.GET and request.GET["q"] != "":
