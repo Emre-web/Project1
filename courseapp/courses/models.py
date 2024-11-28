@@ -25,4 +25,9 @@ class Course(models.Model):
      return f"{self.title} {self.description} {self.imageUrl} {self.date} {self.isActive} {self.isHome} {self.slug} {self.categories}"
 
 
+class UploadModel(models.Model):
+    image = models.FileField(upload_to='images')
+   
+    
+
 

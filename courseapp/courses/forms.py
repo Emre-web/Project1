@@ -74,3 +74,8 @@ class CourseEditForm(forms.ModelForm):
                     'required': 'Bu alan zorunludur.',
                 },
             }
+        
+
+class UploadForm(forms.Form):
+     image = forms.FileField()
+     

@@ -2,8 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from courses.forms import CourseCreateForm, CourseEditForm
 from .models import Course, Category
 from django.core.paginator import Paginator
-import os
-import random 
+
 
 def index(request):
     kurslar = Course.objects.filter(isActive=True, isHome=True)
@@ -65,15 +64,11 @@ def upload(request):
     return render(request, 'coursespages/upload.html')
 
 def handle_uploaded_file(file):
-    number = random.randint(1, 1000)
-    filename, file_extension = os.path.splitext(file.name)
-    name = filename + "_" + str(number) + file_extension
-    temp_dir = "temp/"
-    if not os.path.exists(temp_dir):
-        os.makedirs(temp_dir)
-    with open(temp_dir + name, "wb+") as destination:
+    with open("temp/" + file.name,"wb+") as destination:
         for chunk in file.chunks():
             destination.write(chunk)
+         
+
 
 def search(request):
     if "q" in request.GET and request.GET["q"] != "":
