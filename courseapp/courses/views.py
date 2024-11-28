@@ -16,7 +16,7 @@ def index(request):
 
 def create_course(request):
         if request.method == 'POST':
-             form = CourseCreateForm(request.POST)
+             form = CourseCreateForm(request.POST, request.FILES)
 
              if form.is_valid():
                 form.save()
@@ -38,7 +38,7 @@ def course_edit(request, id):
     course = get_object_or_404(Course, id=id)
 
     if request.method == 'POST':
-        form = CourseEditForm(request.POST, instance=course)
+        form = CourseEditForm(request.POSTT, request.FILES, instance=course)
         if form.is_valid(): #bu kısımda formun doğruluğunu kontrol ediyoruz. 
             form.save()
             return redirect('course_list')  # Updated to use the correct URL name

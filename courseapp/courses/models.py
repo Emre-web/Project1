@@ -14,7 +14,7 @@ class Category(models.Model):
 class Course(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=70)
-    imageUrl = models.CharField(max_length=50, blank=False)
+    image = models.ImageField(upload_to='image')
     date = models.DateTimeField(auto_now_add=True)
     isActive = models.BooleanField(default=False)
     isHome = models.BooleanField(default=False)
@@ -22,11 +22,11 @@ class Course(models.Model):
     categories = models.ManyToManyField(Category)
 
     def __str__(self):
-     return f"{self.title} {self.description} {self.imageUrl} {self.date} {self.isActive} {self.isHome} {self.slug} {self.categories}"
+     return f"{self.title} {self.description} {self.image} {self.date} {self.isActive} {self.isHome} {self.slug} {self.categories}"
 
 
 class UploadModel(models.Model):
-    image = models.FileField(upload_to='images')
+    image = models.FileField(upload_to='image')
    
     
 
