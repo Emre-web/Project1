@@ -29,5 +29,5 @@ class UploadModel(models.Model):
     image = models.FileField(upload_to='image')
    
     
-
+ 
 
