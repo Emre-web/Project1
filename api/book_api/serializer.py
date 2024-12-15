@@ -8,3 +8,7 @@ class BookSerializer(serializers.Serializer):
     page_number = serializers.IntegerField()
     publish_data = serializers.DateField()
     stock = serializers.IntegerField() 
+
+    def create(self, validated_data):
+        return Book.objects.create(**validated_data) #veri tabanına eklenecek olan datalar böyle gönderilir.
+     
